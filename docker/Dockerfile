@@ -11,15 +11,15 @@ ENV GO111MODULE on
 ENV GOPROXY direct
 
 # We clone Kubo source code.
-RUN git clone https://github.com/ipfs/kubo
+RUN git clone https://github.com/mdykman/kubo
 ENV SRC_DIR /kubo
 
 # Move to kubo folder
 WORKDIR $SRC_DIR
 
 # Install the plugin and build ipfs
-RUN go get github.com/ipfs/go-ds-s3@latest
-RUN echo "\ns3ds github.com/ipfs/go-ds-s3/plugin 0" >> plugin/loader/preload_list
+RUN go get github.com/mdykman/go-ds-s3@latest
+RUN echo "\ns3ds github.com/mdykman/go-ds-s3/plugin 0" >> plugin/loader/preload_list
 RUN make build || : #first build will fail
 RUN go mod tidy
 RUN make build
